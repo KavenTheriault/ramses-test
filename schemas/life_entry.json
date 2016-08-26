@@ -1,0 +1,79 @@
+{
+    "type": "object",
+    "title": "Life Entry schema",
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "properties": {
+        "id": {
+            "type": ["integer", "string"],
+            "_db_settings": {
+                "type": "id_field",
+                "primary_key": true
+            }
+        },
+        "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "_db_settings": {
+                "type": "datetime",
+                "default": "{{datetime.datetime.utcnow}}"
+            }
+        },
+        "updated_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "_db_settings": {
+                "type": "datetime",
+                "onupdate": "{{datetime.datetime.utcnow}}"
+            }
+        },
+        "user_id": {
+            "type": ["string", "null"],
+            "_db_settings": {
+                "type": "foreign_key",
+                "ref_document": "User",
+                "ref_column": "user.username",
+                "ref_column_type": "string"
+            }
+        },
+        "day_id": {
+            "type": ["integer", "null"],
+            "_db_settings": {
+                "type": "foreign_key",
+                "ref_document": "day",
+                "ref_column": "day.id",
+                "ref_column_type": "integer"
+            }
+        },
+        "start_time": {
+            "type": ["string", "null"],
+            "format": "time",
+            "_db_settings": {
+                "type": "time"
+            }
+        },
+        "end_time": {
+            "type": ["string", "null"],
+            "format": "time",
+            "_db_settings": {
+                "type": "time"
+            }
+        },
+        "life_entry_activities": {
+            "type": ["array", "null"],
+            "items": {
+                "oneOf": [
+                    {"type": "string"},
+                    {"type": "integer"}
+                ]
+            },
+            "_db_settings": {
+                "type": "relationship",
+                "document": "life_entry_activity",
+                "ondelete": "NULLIFY",
+                "backref_name": "life_entry",
+                "backref_ondelete": "NULLIFY",
+                "foreign_keys": "life_entry_activity.life_entry_id"
+            }
+        }
+    }
+}

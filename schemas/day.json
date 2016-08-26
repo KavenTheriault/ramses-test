@@ -1,0 +1,69 @@
+{
+    "type": "object",
+    "title": "Day schema",
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "properties": {
+        "id": {
+            "type": ["integer", "string"],
+            "_db_settings": {
+                "type": "id_field",
+                "primary_key": true
+            }
+        },
+        "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "_db_settings": {
+                "type": "datetime",
+                "default": "{{datetime.datetime.utcnow}}"
+            }
+        },
+        "updated_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "_db_settings": {
+                "type": "datetime",
+                "onupdate": "{{datetime.datetime.utcnow}}"
+            }
+        },
+        "user_id": {
+            "type": ["string", "null"],
+            "_db_settings": {
+                "type": "foreign_key",
+                "ref_document": "User",
+                "ref_column": "user.username",
+                "ref_column_type": "string"
+            }
+        },
+        "date": {
+            "type": ["string", "null"],
+            "format": "date",
+            "_db_settings": {
+                "type": "date"
+            }
+        },
+        "note": {
+            "type": ["string", "null"],
+            "_db_settings": {
+                "type": "unicode_text"
+            }
+        },
+        "life_entries": {
+            "type": ["array", "null"],
+            "items": {
+                "oneOf": [
+                    {"type": "string"},
+                    {"type": "integer"}
+                ]
+            },
+            "_db_settings": {
+                "type": "relationship",
+                "document": "life_entry",
+                "ondelete": "NULLIFY",
+                "backref_name": "day",
+                "backref_ondelete": "NULLIFY",
+                "foreign_keys": "life_entry.day_id"
+            }
+        }
+    }
+}
