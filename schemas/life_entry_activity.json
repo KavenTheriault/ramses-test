@@ -2,6 +2,9 @@
     "type": "object",
     "title": "Life Entry Activity schema",
     "$schema": "http://json-schema.org/draft-04/schema",
+    "_event_handlers": {
+        "before_create": ["set_item_owner"]
+    },
     "properties": {
         "id": {
             "type": ["integer", "string"],

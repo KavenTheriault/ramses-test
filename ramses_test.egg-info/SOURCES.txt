@@ -1,3 +1,4 @@
+setup.py
 ramses_test/__init__.py
 ramses_test.egg-info/PKG-INFO
 ramses_test.egg-info/SOURCES.txt

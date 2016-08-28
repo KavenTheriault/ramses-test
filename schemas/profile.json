@@ -1,10 +1,7 @@
 {
     "type": "object",
-    "title": "Activity Type schema",
+    "title": "Profile schema",
     "$schema": "http://json-schema.org/draft-04/schema",
-    "_event_handlers": {
-        "before_create": ["set_item_owner"]
-    },
     "properties": {
         "id": {
             "type": ["integer", "string"],
@@ -29,6 +26,12 @@
                 "onupdate": "{{datetime.datetime.utcnow}}"
             }
         },
+        "address": {
+            "type": ["string", "null"],
+            "_db_settings": {
+                "type": "unicode_text"
+            }
+        },
         "user_id": {
             "type": ["string", "null"],
             "_db_settings": {
@@ -38,17 +41,8 @@
                 "ref_column_type": "string"
             }
         },
-        "name": {
-            "type": ["string", "null"],
-            "_db_settings": {
-                "type": "string"
-            }
-        },
-        "show_rating": {
-            "type": ["boolean", "null"],
-            "_db_settings": {
-                "type": "boolean"
-            }
+        "user": {
+            "type": ["string", "null"]
         }
     }
 }
